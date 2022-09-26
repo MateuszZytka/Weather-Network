@@ -1,5 +1,45 @@
-.header {
-    background: rgb(255,192,0);
-    background-color: linear-gradient(90deg, rgba(255,192,0,1) 0%, rgba(0,255,4,1) 75%, rgba(249,255,0,1) 100%);
+header {
+    background: rgb(0,254,255);
+    background: linear-gradient(90deg, rgba(0,254,255,1) 0%, rgba(38,0,255,1) 50%, rgba(0,194,255,1) 100%);
     text-align: center;
+    height: 100px;
+    color: white;
+    padding: 20px;
+}
+
+li {
+    width: 354px;
+    height: 30px;
+    background-color: darkgrey;
+    color: black;
+    list-style-type: none;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+ul {
+    border-top: solid 2px black;
+    padding-left: 0px;
+}
+
+#search{
+    background-color: rgba(38,0,255,1);
+    color : white;
+    width: 354px;
+    margin-top: 20px;
+}
+
+.custom-form-control {
+    width: 354px;
+}
+
+.custom-input-group {
+    padding: 20px 0px 20px 0px
+}
+
+.today {
+    margin: 15px;
+    padding: 15px;
+    border: solid 2px black;
 }
