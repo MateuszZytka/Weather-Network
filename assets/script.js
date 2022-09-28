@@ -5,7 +5,8 @@ let timeDisplayEl2= $('#date2');
 let timeDisplayEl3 = $('#date3');
 let timeDisplayEl4 = $('#date4');
 let timeDisplayEl5 = $('#date5');
-
+let cityArr = []
+let cityList = document.querySelector("#list")
 
 
 
@@ -87,26 +88,37 @@ const weather = {
                 document.querySelector("#temp" + [j]).innerText = "Temp :" + temp + "°C"
                 document.querySelector("#humidity" + [j]).innerText = "Humidity: " + humidity + " %"
                 document.querySelector("#speed" + [j]).innerText = "Wind Speed: " + speed + " Km/H"
-        }
-    });
-}
+            }
+        });
+    },
+    searchforecast: function () {
+        this.forecast(document.querySelector("#searchBar").value)
+    }
 }
 
+function storeCity() {
+    cityArr.unshift(document.querySelector("#searchBar").value)
+    localStorage.setItem("city", JSON.stringify(cityArr));
+    console.log(cityArr)
+}
 
 
 document.querySelector("#search").addEventListener("click", function(){
 
-    localStorage.setItem("City", (document.querySelector("#searchBar").value))
-    let listItem = $("<li>");
-    listItem.on("click", function(){
-        weather.search()
-        weather.forecast()
+    storeCity(document.querySelector("#searchBar").value)
+    li = document.createElement('li')
+    li.textContent = cityArr[0]
+    li.addEventListener("click", function(){
+        weather.fetchWeather(li.innerText)
+        weather.searchforecast(li.innerText)
     })
-    document.querySelector("#list").appendChild.listItem
+    cityList.appendChild(li)
     weather.search()
-    weather.forecast((document.querySelector("#searchBar").value))
+    weather.searchforecast()
 
 })
+
+
 
 
 displayTime()
