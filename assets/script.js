@@ -1,3 +1,5 @@
+//variables defined
+
 const apikey = "35a55f32ca0b9555d78059eeffda6096"
 let timeDisplayEl = $('#date');
 let timeDisplayEl1 = $('#date1');
@@ -9,7 +11,7 @@ let cityArr = []
 let cityList = document.querySelector("#list")
 let firstCity = document.querySelector("#atlanta")
 
-
+//gets dates and displays dates in html
 function displayTime() {
     var rightNow = moment().format('MMM DD, YYYY a');
     let day1Date = moment().add(1, 'days').format('MM-DD-YYYY')
@@ -27,6 +29,7 @@ function displayTime() {
   }
 
 const weather = {
+    //function fetches for data from API
     fetchWeather: function(city){
         fetch(
             "https://api.openweathermap.org/data/2.5/weather?q="
@@ -39,10 +42,13 @@ const weather = {
               alert("No weather found.");
               throw new Error("No weather found.");
             }
+            //gets response and returns it as a JSON object
             return response.json();
           })
+          //pushes data to the next function
           .then((data) => this.displayWeather(data))
     },
+    //data is used to get information needed and assigned to variables, then pushed to html
     displayWeather: function(data){
         const { name } = data;
         const { icon, description } = data.weather[0]
@@ -97,10 +103,11 @@ function storeCity() {
     localStorage.setItem("city", JSON.stringify(cityArr));
 }
 
-
+//event listner that calls functions to search for cuurent weathr and 5 day forecast, creates a list item, appends said list item and adds event listener to list item
 document.querySelector("#search").addEventListener("click", function(){
-
+    //stores city that was called
     storeCity(document.querySelector("#searchBar").value)
+    //creates list item, fills in list item content and adds event listener, and appends to list in html
     li = document.createElement('li')
     li.textContent = cityArr[0]
     li.addEventListener("click", function(){
@@ -109,11 +116,12 @@ document.querySelector("#search").addEventListener("click", function(){
         weather.forecast(listedCity)
     })
     cityList.appendChild(li)
+    //calls functions to search for weather data
     weather.search()
     weather.searchforecast()
-
 })
 
+//same event listner as above but the event is submit
 document.querySelector("#searchBar").addEventListener("search", function(){
 
     storeCity(document.querySelector("#searchBar").value)
@@ -127,15 +135,15 @@ document.querySelector("#searchBar").addEventListener("search", function(){
     cityList.appendChild(li)
     weather.search()
     weather.searchforecast()
-
 })
 
+//eventlistener added for the fisrt search which is preloaded
 firstCity.addEventListener("click", function(){
     weather.fetchWeather("Atlanta")
     weather.forecast("Atlanta")
 })
 
-
+//functions to call at the start, displaying time, currenta nd 5 day forecast for Atlanta
 displayTime()
 weather.fetchWeather("Atlanta")
 weather.forecast("Atlanta")
