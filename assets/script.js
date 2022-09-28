@@ -109,8 +109,10 @@ document.querySelector("#search").addEventListener("click", function(){
     li = document.createElement('li')
     li.textContent = cityArr[0]
     li.addEventListener("click", function(){
-        weather.fetchWeather(li.innerText)
-        weather.searchforecast(li.innerText)
+        let listedCity = event.target.innerHTML
+        console.log(listedCity)
+        weather.fetchWeather(listedCity)
+        weather.forecast(listedCity)
     })
     cityList.appendChild(li)
     weather.search()
