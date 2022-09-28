@@ -120,6 +120,22 @@ document.querySelector("#search").addEventListener("click", function(){
 
 })
 
+document.querySelector("#searchBar").addEventListener("search", function(){
+
+    storeCity(document.querySelector("#searchBar").value)
+    li = document.createElement('li')
+    li.textContent = cityArr[0]
+    li.addEventListener("click", function(){
+        let listedCity = event.target.innerHTML
+        console.log(listedCity)
+        weather.fetchWeather(listedCity)
+        weather.forecast(listedCity)
+    })
+    cityList.appendChild(li)
+    weather.search()
+    weather.searchforecast()
+
+})
 
 
 
