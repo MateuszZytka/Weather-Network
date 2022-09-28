@@ -7,7 +7,7 @@ let timeDisplayEl4 = $('#date4');
 let timeDisplayEl5 = $('#date5');
 let cityArr = []
 let cityList = document.querySelector("#list")
-
+let firstCity = document.querySelector("#atlanta")
 
 
 function displayTime() {
@@ -48,7 +48,6 @@ const weather = {
         const { icon, description } = data.weather[0]
         const { temp, humidity} = data.main
         const { speed } = data.wind
-        console.log(name, icon, description, temp, humidity, speed)
         document.querySelector("#city").innerText = name
         document.querySelector("#icon").src = "https://openweathermap.org/img/wn/" + icon + ".png";
         document.querySelector("#temp").innerText = "Temp :" + temp + "°C"
@@ -75,15 +74,12 @@ const weather = {
           })
 
         .then(function(data){
-            console.log(data)
            
             for (let i = 2, j = 1; i < 41, j < 6; i = i + 8, j++){
                 
                 const { icon } = data.list[i].weather[0]
                 const { temp, humidity} = data.list[i].main
                 const { speed } = data.list[i].wind
-                console.log(icon, temp, humidity, speed)
-                console.log(j)
                 document.querySelector("#icon" + [j]).src = "https://openweathermap.org/img/wn/" + icon + ".png";
                 document.querySelector("#temp" + [j]).innerText = "Temp :" + temp + "°C"
                 document.querySelector("#humidity" + [j]).innerText = "Humidity: " + humidity + " %"
@@ -99,7 +95,6 @@ const weather = {
 function storeCity() {
     cityArr.unshift(document.querySelector("#searchBar").value)
     localStorage.setItem("city", JSON.stringify(cityArr));
-    console.log(cityArr)
 }
 
 
@@ -110,7 +105,6 @@ document.querySelector("#search").addEventListener("click", function(){
     li.textContent = cityArr[0]
     li.addEventListener("click", function(){
         let listedCity = event.target.innerHTML
-        console.log(listedCity)
         weather.fetchWeather(listedCity)
         weather.forecast(listedCity)
     })
@@ -127,7 +121,6 @@ document.querySelector("#searchBar").addEventListener("search", function(){
     li.textContent = cityArr[0]
     li.addEventListener("click", function(){
         let listedCity = event.target.innerHTML
-        console.log(listedCity)
         weather.fetchWeather(listedCity)
         weather.forecast(listedCity)
     })
@@ -137,6 +130,10 @@ document.querySelector("#searchBar").addEventListener("search", function(){
 
 })
 
+firstCity.addEventListener("click", function(){
+    weather.fetchWeather("Atlanta")
+    weather.forecast("Atlanta")
+})
 
 
 displayTime()
